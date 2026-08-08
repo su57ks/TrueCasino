@@ -1,4 +1,4 @@
-package com.example.truecasino.ui.screen
+package com.example.truecasino.ui.screen.onboarding
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AgreeScreen(modifier: Modifier = Modifier) {
+fun AgreeScreen(play: () -> Unit = {}) {
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
@@ -150,7 +150,7 @@ fun AgreeScreen(modifier: Modifier = Modifier) {
             textAlign = TextAlign.Center
         )
         Button(
-            onClick = {}
+            onClick = {play()}
         ) {
             Text(text = "Играть")
         }

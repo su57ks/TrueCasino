@@ -1,6 +1,5 @@
-package com.example.truecasino.ui.screen
+package com.example.truecasino.ui.screen.login
 
-import android.widget.Button
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,9 +14,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material3.Button
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(
+    viewModel: LoginViewModel = LoginViewModel(),
+    onSuccess: () -> Unit = {}
+) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(uiState) {
+        if (uiState is LoginUiState.Success) {
+            onSuccess()
+        }
+    }
+
     var login by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     Column(
@@ -39,7 +51,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             label = {Text(text = "Пароль")}
         )
         Button(
-            onClick = {}
+            onClick = {onSuccess()}
         ){
             Text(
                 text = "Войти"
