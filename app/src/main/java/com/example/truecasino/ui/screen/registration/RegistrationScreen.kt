@@ -1,4 +1,4 @@
-package com.example.truecasino.ui.screen.login
+package com.example.truecasino.ui.screen.registration
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,17 +17,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material3.Button
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import com.example.truecasino.ui.screen.login.LoginUiState
 
 @Composable
-fun LoginScreen(
-    viewModel: LoginViewModel = LoginViewModel(),
+fun RegistrationScreen(
+    viewModel: RegistrationViewModel = RegistrationViewModel(),
     onSuccess: () -> Unit = {},
-    toRegistration: () -> Unit ={}
+    toLogin: () -> Unit ={}
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(uiState) {
-        if (uiState is LoginUiState.Success) {
+        if (uiState is RegistrationUiState.Success) {
             onSuccess()
         }
     }
@@ -40,7 +41,7 @@ fun LoginScreen(
             .background(Color.White)
     ) {
         Text(
-            text = "Вход"
+            text = "Регистрация"
         )
         OutlinedTextField(
             value = login,
@@ -60,14 +61,14 @@ fun LoginScreen(
             )
         }
         Text(
-            text = "Нет аккаунта? Регистрация",
-            modifier = Modifier.clickable{toRegistration()}
+            text = "Есть аккаунт? Вход",
+            modifier = Modifier.clickable{toLogin()}
         )
     }
 }
 
 @Preview
 @Composable
-private fun LoginScreenPrev() {
-    LoginScreen()
+private fun RegistrationScreenPrev() {
+    RegistrationScreen()
 }

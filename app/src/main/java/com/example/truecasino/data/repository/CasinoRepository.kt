@@ -7,4 +7,5 @@ class CasinoRepository {
     private val api: CasinoApi = MockCasinoApi()
 
     suspend fun login(username: String, password: String) = api.login(username, password)
+    suspend fun registration(username: String, password: String) = api.registration(username, password)
 }

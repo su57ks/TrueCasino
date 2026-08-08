@@ -17,7 +17,7 @@ class MockCasinoApi : CasinoApi {
 
     }
 
-    override suspend fun register(
+    override suspend fun registration(
         username: String,
         password: String
     ): AuthResponse {

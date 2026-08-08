@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.truecasino.ui.screen.login.LoginScreen
 import com.example.truecasino.ui.screen.main.MainScreen
 import com.example.truecasino.ui.screen.onboarding.AgreeScreen
+import com.example.truecasino.ui.screen.registration.RegistrationScreen
 
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
@@ -20,11 +21,18 @@ fun AppNavHost(modifier: Modifier = Modifier) {
         }
         composable("login"){
             LoginScreen(
-                onSuccess = {nav.navigate("main")}
+                onSuccess = {nav.navigate("main")},
+                toRegistration = {nav.navigate("registration")}
             )
         }
         composable("main"){
             MainScreen()
+        }
+        composable("registration"){
+            RegistrationScreen(
+                onSuccess = {nav.navigate("main")},
+                toLogin = {nav.navigate("login")}
+            )
         }
     }
 }

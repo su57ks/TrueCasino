@@ -4,6 +4,17 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
+        <DropdownSelection timestamp="2026-08-08T14:12:38.285391Z">
+          <Target type="DEFAULT_BOOT">
+            <handle>
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\kirill\.android\avd\Medium_Phone.avd" />
+            </handle>
+          </Target>
+        </DropdownSelection>
+        <DialogSelection />
+      </SelectionState>
+      <SelectionState runConfigName="AgreeScreenPrev">
+        <option name="selectionMode" value="DROPDOWN" />
         <DropdownSelection timestamp="2026-08-03T13:37:35.374425400Z">
           <Target type="DEFAULT_BOOT">
             <handle>
@@ -13,7 +24,7 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="AgreeScreenPrev">
+      <SelectionState runConfigName="LoginScreenPrev">
         <option name="selectionMode" value="DROPDOWN" />
         <DropdownSelection timestamp="2026-08-03T13:37:35.374425400Z">
           <Target type="DEFAULT_BOOT">
