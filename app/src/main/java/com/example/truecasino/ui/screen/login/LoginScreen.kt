@@ -28,7 +28,7 @@ fun LoginScreen(
 
     if (uiState is LoginUiState.Success) {
         onSuccess()
-        TODO("Нормальный переход")
+        //TODO("Нормальный переход")
     }
 
     var login by remember { mutableStateOf("") }

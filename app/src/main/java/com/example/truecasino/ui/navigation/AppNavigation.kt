@@ -5,6 +5,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.truecasino.ui.screen.game.coinflip.CoinFlipScreen
+import com.example.truecasino.ui.screen.game.mines.MinesScreen
+import com.example.truecasino.ui.screen.game.roulette.RouletteScreen
+import com.example.truecasino.ui.screen.game.slots.SlotsScreen
 import com.example.truecasino.ui.screen.lobby.LobbyScreen
 import com.example.truecasino.ui.screen.login.LoginScreen
 import com.example.truecasino.ui.screen.main.MainScreen
@@ -40,7 +44,33 @@ fun AppNavHost(modifier: Modifier = Modifier) {
             )
         }
         composable("lobby"){
-            LobbyScreen()
+            LobbyScreen(
+                toCoinFlip = {nav.navigate("coinflip")},
+                toMines = {nav.navigate("mines")},
+                toRoulette = {nav.navigate("roulette")},
+                toSlots = {nav.navigate("slots")},
+                toMain = {nav.navigate("main")}
+            )
+        }
+        composable("coinflip"){
+            CoinFlipScreen(
+                toLobby = {nav.navigate("lobby")}
+            )
+        }
+        composable("mines"){
+            MinesScreen(
+                toLobby = {nav.navigate("lobby")}
+            )
+        }
+        composable("roulette"){
+            RouletteScreen(
+                toLobby = {nav.navigate("lobby")}
+            )
+        }
+        composable("slots"){
+            SlotsScreen(
+                toLobby = {nav.navigate("lobby")}
+            )
         }
     }
 }
