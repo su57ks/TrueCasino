@@ -26,10 +26,9 @@ fun LoginScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(uiState) {
-        if (uiState is LoginUiState.Success) {
-            onSuccess()
-        }
+    if (uiState is LoginUiState.Success) {
+        onSuccess()
+        TODO("Нормальный переход")
     }
 
     var login by remember { mutableStateOf("") }
@@ -53,7 +52,10 @@ fun LoginScreen(
             label = {Text(text = "Пароль")}
         )
         Button(
-            onClick = {onSuccess()}
+            onClick = {viewModel.login(
+                username = login,
+                password = password
+            )}
         ){
             Text(
                 text = "Войти"

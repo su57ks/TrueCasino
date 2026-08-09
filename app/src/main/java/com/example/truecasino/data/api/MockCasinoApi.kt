@@ -1,5 +1,7 @@
 package com.example.truecasino.data.api
 
+import android.util.Log
+
 class MockCasinoApi : CasinoApi {
     private var user: String = ""
     private var balance: Long = 100_000
@@ -9,12 +11,12 @@ class MockCasinoApi : CasinoApi {
         password: String
     ): AuthResponse {
         user = username
+        Log.d("USERNAME", user)
         return AuthResponse(
             token = "mock_$user",
             username = user,
             balance = balance
         )
-
     }
 
     override suspend fun registration(
@@ -24,4 +26,7 @@ class MockCasinoApi : CasinoApi {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getUsername(): String {
+        return user
+    }
 }

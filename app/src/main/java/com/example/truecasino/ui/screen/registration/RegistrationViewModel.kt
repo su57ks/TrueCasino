@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class RegistrationViewModel (
-    private val repository: CasinoRepository = CasinoRepository()
+    private val repository: CasinoRepository = CasinoRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<RegistrationUiState>(RegistrationUiState.Idle)
     val uiState: StateFlow<RegistrationUiState> = _uiState

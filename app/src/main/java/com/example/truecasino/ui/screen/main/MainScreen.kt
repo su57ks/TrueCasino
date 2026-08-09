@@ -1,6 +1,7 @@
 package com.example.truecasino.ui.screen.main
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,9 +18,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.truecasino.data.repository.CasinoRepository
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+fun MainScreen(
+    toLobby: () -> Unit = {},
+    toLeaders: () -> Unit = {},
+    toShop: () -> Unit = {},
+    viewModel: MainViewModel = MainViewModel()
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -39,30 +46,38 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 fontSize = 25.sp
             )
             Text(
-                text = "Настройки",
+                text = viewModel.username,
                 color = Color.White,
                 fontSize = 25.sp
             )
         }
         MainCard(
             title = "Лобби",
-            description = "Все игры"
+            description = "Все игры",
+            onClick = toLobby
         )
         MainCard(
             title = "Лидеры",
-            description = "Ну вы поняли"
+            description = "Ну вы поняли",
+            onClick = toLeaders
+        )
+        MainCard(
+            title = "Магазин",
+            description = "(И промокоды)",
+            onClick = toShop
         )
     }
 }
 
 @Composable
-fun MainCard(title: String = "", description: String = "") {
+fun MainCard(title: String = "", description: String = "", onClick: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxWidth(0.95f)
             .clip(RoundedCornerShape(20.dp))
             .background(Color.Black)
             .padding(10.dp)
+            .clickable{onClick()}
     ) {
         Text(
             text = title,
