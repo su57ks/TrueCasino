@@ -140,7 +140,8 @@ fun LoginScreen(
             ) {
                 Text(
                     text = "Войти",
-                    fontSize = 25.sp
+                    fontSize = 25.sp,
+                    color = ShadowBlack
                 )
             }
             Spacer(modifier = Modifier.weight(5f))
