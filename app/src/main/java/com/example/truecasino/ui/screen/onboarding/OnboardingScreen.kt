@@ -11,16 +11,21 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.truecasino.ui.theme.BloodRed
+import com.example.truecasino.ui.theme.ShadowBlack
+import com.example.truecasino.ui.theme.Vanilla
 
 @Composable
 fun AgreeScreen(play: () -> Unit = {}) {
@@ -28,9 +33,9 @@ fun AgreeScreen(play: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(ShadowBlack)
             .verticalScroll(scrollState)
-            .padding(10.dp),
+            .padding(top = 20.dp, start = 10.dp, end = 10.dp, bottom = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -38,14 +43,16 @@ fun AgreeScreen(play: () -> Unit = {}) {
             text = "ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ\nTrueCasino",
             fontWeight = FontWeight.Black,
             fontSize = 20.sp,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = Vanilla
         )
         Text(
             text = "Редакция от 03.08.2026\n" +
                     "Действует до выхода Админа из депрессии ИЛИ появления у него девушки (что наступит раньше и наступит ли вообще — неизвестно даже квантовому суперкомпьютеру).",
             fontWeight = FontWeight.Bold,
             fontSize = 15.sp,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = Vanilla
         )
         Card(
             header = "1. ОБЩИЕ ПОЛОЖЕНИЯ",
@@ -146,10 +153,15 @@ fun AgreeScreen(play: () -> Unit = {}) {
                     "Но не так, как свою вайфу.",
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = Vanilla
         )
         Button(
-            onClick = {play()}
+            onClick = {play()},
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Vanilla,
+                contentColor = ShadowBlack
+                )
         ) {
             Text(text = "Играть")
         }
@@ -161,11 +173,8 @@ fun Card(header: String = "", main: String = "") {
     Column(
         modifier = Modifier
             .fillMaxWidth(0.95f)
-            .border(
-                width = 2.dp,
-                color = Color.Black,
-                shape = RoundedCornerShape(8.dp)
-            )
+            .clip(RoundedCornerShape(20.dp))
+            .background(Vanilla)
             .padding(10.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
@@ -173,12 +182,12 @@ fun Card(header: String = "", main: String = "") {
             text = header,
             fontWeight = FontWeight.Black,
             fontSize = 18.sp,
-            color = Color.Black
+            color = ShadowBlack
         )
         Text(
             text = main,
             fontSize = 15.sp,
-            color = Color.Black
+            color = ShadowBlack
         )
     }
 }
