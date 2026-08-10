@@ -1,4 +1,4 @@
-package com.example.truecasino.ui.screen.login
+package com.example.truecasino.ui.screen.registration
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

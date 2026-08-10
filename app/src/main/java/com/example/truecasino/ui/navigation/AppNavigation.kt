@@ -11,9 +11,9 @@ import com.example.truecasino.ui.screen.game.roulette.RouletteScreen
 import com.example.truecasino.ui.screen.game.slots.SlotsScreen
 import com.example.truecasino.ui.screen.lobby.LobbyScreen
 import com.example.truecasino.ui.screen.login.LoginScreen
+import com.example.truecasino.ui.screen.registration.RegistrationScreen
 import com.example.truecasino.ui.screen.main.MainScreen
 import com.example.truecasino.ui.screen.onboarding.AgreeScreen
-import com.example.truecasino.ui.screen.registration.RegistrationScreen
 
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
