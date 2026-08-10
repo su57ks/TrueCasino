@@ -11,7 +11,6 @@ class MockCasinoApi : CasinoApi {
         password: String
     ): AuthResponse {
         user = username
-        Log.d("USERNAME", user)
         return AuthResponse(
             token = "mock_$user",
             username = user,
@@ -23,7 +22,12 @@ class MockCasinoApi : CasinoApi {
         username: String,
         password: String
     ): AuthResponse {
-        TODO("Not yet implemented")
+        user = username
+        return AuthResponse(
+            token = "mock_$user",
+            username = user,
+            balance = balance
+        )
     }
 
     override suspend fun getUsername(): String {

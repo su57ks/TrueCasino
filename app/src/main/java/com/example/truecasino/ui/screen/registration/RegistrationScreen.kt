@@ -27,10 +27,9 @@ fun RegistrationScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(uiState) {
-        if (uiState is RegistrationUiState.Success) {
-            onSuccess()
-        }
+    if (uiState is RegistrationUiState.Success) {
+        onSuccess()
+        //TODO("Нормальный переход")
     }
 
     var login by remember { mutableStateOf("") }
@@ -54,10 +53,13 @@ fun RegistrationScreen(
             label = {Text(text = "Пароль")}
         )
         Button(
-            onClick = {onSuccess()}
+            onClick = {viewModel.registration(
+                username = login,
+                password = password
+            )}
         ){
             Text(
-                text = "Войти"
+                text = "Зарегестрироваться"
             )
         }
         Text(
