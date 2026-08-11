@@ -4,7 +4,7 @@ import android.util.Log
 
 class MockCasinoApi : CasinoApi {
     private var user: String = ""
-    private var balance: Long = 100_000
+    private var balance: Long = 100_000L
 
     override suspend fun login(
         username: String,
@@ -32,5 +32,9 @@ class MockCasinoApi : CasinoApi {
 
     override suspend fun getUsername(): String {
         return user
+    }
+
+    override suspend fun getBalance(): Long {
+        return balance
     }
 }

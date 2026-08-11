@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +23,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.view.ViewPropertyAnimatorListenerAdapter
+import com.example.truecasino.ui.theme.BloodRed
+import com.example.truecasino.ui.theme.ShadowBlack
+import com.example.truecasino.ui.theme.Vanilla
 
 @Composable
 fun LobbyScreen(
@@ -34,7 +39,7 @@ fun LobbyScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(BloodRed)
             .padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -42,7 +47,8 @@ fun LobbyScreen(
         Text(
             text = "Лобби",
             fontSize = 25.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = Vanilla
         )
         Row(
             modifier = Modifier
@@ -93,10 +99,14 @@ fun LobbyScreen(
             }
         }
         Button(
-            onClick = toMain
+            onClick = toMain,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Vanilla,
+                contentColor = ShadowBlack
+            )
         ) {
             Text(
-                text = "Назад"
+                text = "На главную"
             )
         }
     }
@@ -112,20 +122,20 @@ fun GameCard(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(20.dp))
-            .background(Color.Black)
+            .background(Vanilla)
             .padding(10.dp)
             .aspectRatio(1f)
             .clickable{onClick()}
     ) {
         Text(
             text = title,
-            color = Color.White,
+            color = ShadowBlack,
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold
         )
         Text(
             text = description,
-            color = Color.White,
+            color = ShadowBlack,
             fontSize = 20.sp
         )
     }

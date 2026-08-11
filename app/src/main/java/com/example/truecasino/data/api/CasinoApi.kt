@@ -4,4 +4,5 @@ interface CasinoApi {
     suspend fun login(username: String, password: String): AuthResponse
     suspend fun registration(username: String, password: String): AuthResponse
     suspend fun getUsername(): String
+    suspend fun getBalance(): Long
 }

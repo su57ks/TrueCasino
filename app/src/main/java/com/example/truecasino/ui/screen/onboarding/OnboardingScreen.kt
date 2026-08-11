@@ -33,7 +33,7 @@ fun AgreeScreen(play: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(ShadowBlack)
+            .background(BloodRed)
             .verticalScroll(scrollState)
             .padding(top = 20.dp, start = 10.dp, end = 10.dp, bottom = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -42,7 +42,7 @@ fun AgreeScreen(play: () -> Unit = {}) {
         Text(
             text = "ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ\nTrueCasino",
             fontWeight = FontWeight.Black,
-            fontSize = 20.sp,
+            fontSize = 22.sp,
             textAlign = TextAlign.Center,
             color = Vanilla
         )
@@ -50,7 +50,7 @@ fun AgreeScreen(play: () -> Unit = {}) {
             text = "Редакция от 03.08.2026\n" +
                     "Действует до выхода Админа из депрессии ИЛИ появления у него девушки (что наступит раньше и наступит ли вообще — неизвестно даже квантовому суперкомпьютеру).",
             fontWeight = FontWeight.Bold,
-            fontSize = 15.sp,
+            fontSize = 20.sp,
             textAlign = TextAlign.Center,
             color = Vanilla
         )
@@ -181,12 +181,12 @@ fun Card(header: String = "", main: String = "") {
         Text(
             text = header,
             fontWeight = FontWeight.Black,
-            fontSize = 18.sp,
+            fontSize = 22.sp,
             color = ShadowBlack
         )
         Text(
             text = main,
-            fontSize = 15.sp,
+            fontSize = 20.sp,
             color = ShadowBlack
         )
     }

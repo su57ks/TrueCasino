@@ -1,4 +1,4 @@
-package com.example.truecasino.ui.screen.main
+package com.example.truecasino.ui.screen.game.coinflip
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.truecasino.data.repository.CasinoRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel (
+class CoinFlipViewModel (
     private val repository: CasinoRepository = CasinoRepository
 ) : ViewModel() {
     var username by mutableStateOf("")
@@ -30,6 +30,15 @@ class MainViewModel (
         viewModelScope.launch {
             val response = repository.getBalance()
             balance = response
+        }
+    }
+
+    fun bet(
+        betSize: Long,
+        type: Int  //0 - орел, 1 - решка
+    ){
+        viewModelScope.launch {
+            val response = repository.getBalance()
         }
     }
 }
