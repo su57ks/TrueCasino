@@ -15,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -38,6 +39,7 @@ import com.example.truecasino.ui.theme.BloodRed
 import com.example.truecasino.ui.theme.ShadowBlack
 import com.example.truecasino.ui.theme.Vanilla
 import com.example.truecasino.R
+import com.example.truecasino.ui.components.Modal
 
 @Composable
 fun CoinFlipScreen(
@@ -46,14 +48,48 @@ fun CoinFlipScreen(
     ) {
     var betSize by remember { mutableStateOf("1") }
     val uiState by viewModel.uiState.collectAsState()
+
     var lastResult by remember { mutableStateOf(2) }
     var lastBet by remember { mutableStateOf(2) }
+
     val scrollState = rememberScrollState()
+
+    var modalTitle by remember { mutableStateOf("") }
+    var modalDescription by remember { mutableStateOf("") }
+    var isShowing by remember { mutableStateOf(false) }
+
     when (val state = uiState) {
         is CoinFlipUiState.Success -> {
             lastResult = if (state.result) 1 else 0
         }
         else -> {}
+    }
+    fun placeBet(type: Int) {
+        try {
+            val bet = betSize.toLong()
+
+            if (bet < 1) {
+                modalTitle = "Невозможная ставка"
+                modalDescription = "Вы не можете поставить меньше 1"
+                isShowing = true
+                return
+            }
+
+            if (bet > viewModel.balance) {
+                modalTitle = "Невозможная ставка"
+                modalDescription = "Недостаточно средств! Баланс: ${viewModel.balance} ГЕ"
+                isShowing = true
+                return
+            }
+
+            viewModel.bet(betSize = bet, type = type)
+            lastBet = type
+
+        } catch (e: NumberFormatException) {
+            modalTitle = "Невозможная ставка"
+            modalDescription = "Вы не можете поставить '$betSize'"
+            isShowing = true
+        }
     }
     Column(
         modifier = Modifier
@@ -162,13 +198,7 @@ fun CoinFlipScreen(
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Button(
-                    onClick = {
-                        viewModel.bet(
-                            betSize = betSize.toLong(),
-                            type = 0
-                        )
-                        lastBet = 0
-                    },
+                    onClick = {placeBet(0) },
                     modifier = Modifier
                         .weight(1f)
                         .border(
@@ -186,13 +216,7 @@ fun CoinFlipScreen(
                     )
                 }
                 Button(
-                    onClick = {
-                        viewModel.bet(
-                            betSize = betSize.toLong(),
-                            type = 1
-                        )
-                        lastBet = 1
-                    },
+                    onClick = {placeBet(1) },
                     modifier = Modifier
                         .weight(1f)
                         .border(
@@ -220,6 +244,15 @@ fun CoinFlipScreen(
                 Text(text = "В лобби")
             }
         }
+
+
+    }
+    if (isShowing){
+        Modal(
+            title = modalTitle,
+            description = modalDescription,
+            onClose = {isShowing = false}
+        )
     }
 }
 

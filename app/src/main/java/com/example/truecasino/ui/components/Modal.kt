@@ -1,6 +1,7 @@
 package com.example.truecasino.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,12 +28,14 @@ import com.example.truecasino.ui.theme.Vanilla
 @Composable
 fun Modal(
     title: String = "Error",
-    description: String = "Too good player"
+    description: String = "Too good player",
+    onClose: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0x80000000)),
+            .background(Color(0x80000000))
+            .clickable{onClose()},
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -83,7 +86,7 @@ fun Modal(
                     fontSize = 25.sp
                 )
                 Button(
-                    onClick = {},
+                    onClick = onClose,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Vanilla,
                         contentColor = ShadowBlack

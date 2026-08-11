@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.ViewPropertyAnimatorListenerAdapter
+import com.example.truecasino.ui.components.Modal
 import com.example.truecasino.ui.theme.BloodRed
 import com.example.truecasino.ui.theme.ShadowBlack
 import com.example.truecasino.ui.theme.Vanilla
@@ -55,6 +56,36 @@ fun LoginScreen(
     val scrollState = rememberScrollState()
     var login by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    var modalTitle by remember { mutableStateOf("") }
+    var modalDescription by remember { mutableStateOf("") }
+    var isShowing by remember { mutableStateOf(false) }
+
+    fun login(){
+        if (login.length < 5) {
+            modalTitle = "Слишком короткое имя"
+            modalDescription = "Пожалуйста, используйте для логина минимум 5 символов"
+            isShowing = true
+            return
+        }
+        if (password.length < 8) {
+            modalTitle = "Слишком короткий пароль"
+            modalDescription = "Пожалуйста, используйте не менее 8 символов в пароле"
+            isShowing = true
+            return
+        }
+        if (login.length > 25) {
+            modalTitle = "Слишком длинное имя"
+            modalDescription = "Пожалуйста, используйте для логина максимум 25 символов"
+            isShowing = true
+            return
+        }
+        viewModel.login(
+            username = login,
+            password = password
+        )
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -131,10 +162,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
-                    viewModel.login(
-                        username = login,
-                        password = password
-                    )
+                    login()
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Vanilla,
@@ -156,6 +184,13 @@ fun LoginScreen(
                 textAlign = TextAlign.Center
             )
         }
+    }
+    if (isShowing){
+        Modal(
+            title = modalTitle,
+            description = modalDescription,
+            onClose = {isShowing = false}
+        )
     }
 }
 
