@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
@@ -46,6 +48,7 @@ fun CoinFlipScreen(
     val uiState by viewModel.uiState.collectAsState()
     var lastResult by remember { mutableStateOf(2) }
     var lastBet by remember { mutableStateOf(2) }
+    val scrollState = rememberScrollState()
     when (val state = uiState) {
         is CoinFlipUiState.Success -> {
             lastResult = if (state.result) 1 else 0
@@ -55,7 +58,8 @@ fun CoinFlipScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(ShadowBlack),
+            .background(ShadowBlack)
+            .verticalScroll(scrollState),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
@@ -84,6 +88,7 @@ fun CoinFlipScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .weight(1f)
                 .clip(RoundedCornerShape(
                     topEnd = 50.dp,
                     topStart = 50.dp

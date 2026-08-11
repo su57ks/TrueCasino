@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -50,14 +52,14 @@ fun LoginScreen(
         onSuccess()
         //TODO("Нормальный переход")
     }
-
+    val scrollState = rememberScrollState()
     var login by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(ShadowBlack)
-
+            .verticalScroll(scrollState)
     ) {
         Column(
             modifier = Modifier.padding(
@@ -90,7 +92,8 @@ fun LoginScreen(
                 .padding(
                     top = 75.dp,
                     bottom = 100.dp
-                ),
+                )
+                .weight(1f),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
