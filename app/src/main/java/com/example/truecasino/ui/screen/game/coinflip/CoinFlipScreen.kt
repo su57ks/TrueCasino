@@ -1,5 +1,6 @@
 package com.example.truecasino.ui.screen.game.coinflip
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +35,7 @@ import androidx.core.view.ViewPropertyAnimatorListenerAdapter
 import com.example.truecasino.ui.theme.BloodRed
 import com.example.truecasino.ui.theme.ShadowBlack
 import com.example.truecasino.ui.theme.Vanilla
+import com.example.truecasino.R
 
 @Composable
 fun CoinFlipScreen(
@@ -41,7 +44,14 @@ fun CoinFlipScreen(
     ) {
     var betSize by remember { mutableStateOf("1") }
     val uiState by viewModel.uiState.collectAsState()
-    var last by remember { mutableStateOf(2) }
+    var lastResult by remember { mutableStateOf(2) }
+    var lastBet by remember { mutableStateOf(2) }
+    when (val state = uiState) {
+        is CoinFlipUiState.Success -> {
+            lastResult = if (state.result) 1 else 0
+        }
+        else -> {}
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -93,17 +103,35 @@ fun CoinFlipScreen(
                 fontSize = 30.sp
             )
             Text(
-                text = if (last == 0) "Проигрыш"
-                else if (last == 1) "Победа"
+                text = if (lastResult == 0) "Проигрыш"
+                else if (lastResult == 1) "Победа"
                 else "Игры не было",
                 color = Vanilla,
                 fontSize = 20.sp
             )
-            when (val state = uiState) {
-                is CoinFlipUiState.Success -> {
-                    last = if (state.result) 1 else 0
+            if (lastResult != 2){
+                if ((lastResult == 1 && lastBet == 1) || (lastResult == 0 && lastBet == 0)){
+                    Image(
+                        painter = painterResource(R.drawable.earth),
+                        contentDescription = ""
+                    )
+                    Text(
+                        text = "Выпало: решка",
+                        fontSize = 20.sp,
+                        color = Vanilla
+                    )
                 }
-                else -> {}
+                else{
+                    Image(
+                        painter = painterResource(R.drawable.sun),
+                        contentDescription = ""
+                    )
+                    Text(
+                        text = "Выпало: орел",
+                        fontSize = 20.sp,
+                        color = Vanilla
+                    )
+                }
             }
             TextField(
                 value = betSize,
@@ -134,6 +162,7 @@ fun CoinFlipScreen(
                             betSize = betSize.toLong(),
                             type = 0
                         )
+                        lastBet = 0
                     },
                     modifier = Modifier
                         .weight(1f)
@@ -157,6 +186,7 @@ fun CoinFlipScreen(
                             betSize = betSize.toLong(),
                             type = 1
                         )
+                        lastBet = 1
                     },
                     modifier = Modifier
                         .weight(1f)
