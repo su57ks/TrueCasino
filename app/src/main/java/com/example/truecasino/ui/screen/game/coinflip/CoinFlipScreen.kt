@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.view.ViewPropertyAnimatorListenerAdapter
 import com.example.truecasino.ui.theme.BloodRed
 import com.example.truecasino.ui.theme.ShadowBlack
 import com.example.truecasino.ui.theme.Vanilla
@@ -37,7 +39,9 @@ fun CoinFlipScreen(
     toLobby: () -> Unit = {},
     viewModel: CoinFlipViewModel = CoinFlipViewModel()
     ) {
-    var betSize by remember { mutableStateOf("") }
+    var betSize by remember { mutableStateOf("1") }
+    val uiState by viewModel.uiState.collectAsState()
+    var last by remember { mutableStateOf(2) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -85,11 +89,22 @@ fun CoinFlipScreen(
         ) {
             Text(
                 text = "CoinFlip",
-                color = Vanilla
+                color = Vanilla,
+                fontSize = 30.sp
             )
             Text(
-                text = "Изображение монетки///"
+                text = if (last == 0) "Проигрыш"
+                else if (last == 1) "Победа"
+                else "Игры не было",
+                color = Vanilla,
+                fontSize = 20.sp
             )
+            when (val state = uiState) {
+                is CoinFlipUiState.Success -> {
+                    last = if (state.result) 1 else 0
+                }
+                else -> {}
+            }
             TextField(
                 value = betSize,
                 onValueChange = { betSize = it },
@@ -114,7 +129,12 @@ fun CoinFlipScreen(
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Button(
-                    onClick = {},
+                    onClick = {
+                        viewModel.bet(
+                            betSize = betSize.toLong(),
+                            type = 0
+                        )
+                    },
                     modifier = Modifier
                         .weight(1f)
                         .border(
@@ -132,7 +152,12 @@ fun CoinFlipScreen(
                     )
                 }
                 Button(
-                    onClick = {},
+                    onClick = {
+                        viewModel.bet(
+                            betSize = betSize.toLong(),
+                            type = 1
+                        )
+                    },
                     modifier = Modifier
                         .weight(1f)
                         .border(
@@ -149,6 +174,15 @@ fun CoinFlipScreen(
                         text = "Решка"
                     )
                 }
+            }
+            Button(
+                onClick = {toLobby()},
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Vanilla,
+                    contentColor = ShadowBlack
+                )
+            ) {
+                Text(text = "В лобби")
             }
         }
     }

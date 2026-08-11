@@ -10,4 +10,5 @@ object CasinoRepository {
     suspend fun registration(username: String, password: String) = api.registration(username, password)
     suspend fun getUsername() = api.getUsername()
     suspend fun getBalance() = api.getBalance()
+    suspend fun betCoinFlip(betSize: Long, type: Int) = api.betCoinFlip(betSize, type)
 }
